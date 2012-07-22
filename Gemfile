@@ -5,4 +5,5 @@ gem 'rspec'
 gem 'flexmock'
 gem 'mocha'
 gem 'rr'
+gem 'wrong'
 
