@@ -8,8 +8,8 @@ RSpec::Matchers.configuration.syntax = :expect
 class TestSet < MiniTest::Unit::TestCase
   def test_passing_expectation
     set = Set.new
-    set << 3 << 4 << 3
-    expect(set.to_a).to match_array([3, 4])
+    set << 3 << 4
+    expect(set).to include(3)
   end
 
   def test_failing_expectation
