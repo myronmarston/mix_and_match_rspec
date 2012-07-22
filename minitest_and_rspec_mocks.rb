@@ -1,6 +1,5 @@
 require 'minitest/autorun'
 require 'rspec/mocks'
-require 'set'
 
 MiniTest::Unit::TestCase.add_setup_hook do |test_case|
   RSpec::Mocks.setup(test_case)
@@ -27,7 +26,7 @@ class TestSet < MiniTest::Unit::TestCase
   end
 
   def test_stub_real_object
-    Object.stub(:foo => "bar")
+    Object.stub(foo: "bar")
     assert_equal "bar", Object.foo
   end
 
