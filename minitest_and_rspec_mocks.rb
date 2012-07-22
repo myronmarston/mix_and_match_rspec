@@ -29,11 +29,5 @@ class TestSet < MiniTest::Unit::TestCase
     Object.stub(foo: "bar")
     assert_equal "bar", Object.foo
   end
-
-  def test_real_object_stubs_dont_leak
-    assert_raises NoMethodError do
-      Object.foo
-    end
-  end
 end
 
