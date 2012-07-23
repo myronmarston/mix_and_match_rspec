@@ -4,18 +4,22 @@ require 'set'
 
 RSpec::Matchers.configuration.syntax = :expect
 
-class MiniTest::Unit::TestCase
-  include RSpec::Matchers
+module MiniTest
+  remove_const :Assertion # so we can re-assign it w/o a ruby warning
 
-  # So each use of `expect` is counted as an assertion...
-  def expect(*a, &b)
-    assert(true)
-    super
+  # So expectation failures are considered failures, not errors.
+  Assertion = RSpec::Expectations::ExpectationNotMetError
+
+  class Unit::TestCase
+    include RSpec::Matchers
+
+    # So each use of `expect` is counted as an assertion...
+    def expect(*a, &b)
+      assert(true)
+      super
+    end
   end
 end
-
-# So expectation failures are considered failures, not errors.
-MiniTest::Assertion = RSpec::Expectations::ExpectationNotMetError
 
 class TestSet < MiniTest::Unit::TestCase
   def test_passing_expectation
