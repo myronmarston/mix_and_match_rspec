@@ -2,8 +2,20 @@ require 'minitest/autorun'
 require 'rspec/expectations'
 require 'set'
 
-MiniTest::Unit::TestCase.send(:include, RSpec::Matchers)
 RSpec::Matchers.configuration.syntax = :expect
+
+class MiniTest::Unit::TestCase
+  include RSpec::Matchers
+
+  # So each use of `expect` is counted as an assertion...
+  def expect(*a, &b)
+    assert(true)
+    super
+  end
+end
+
+# So expectation failures are considered failures, not errors.
+MiniTest::Assertion = RSpec::Expectations::ExpectationNotMetError
 
 class TestSet < MiniTest::Unit::TestCase
   def test_passing_expectation
